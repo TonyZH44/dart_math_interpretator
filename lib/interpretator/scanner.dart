@@ -38,7 +38,7 @@ class Scanner {
     if (tokenizedExpression.length == 1) {
       return double.parse(tokenizedExpression[0].expressionPiece);
     }
-    //Eval order is PEMDAS - Parenthesis, exponents, multiply, divide, add, subtract
+
     List<ScannedToken> simpleExpr = [];
 
     int idx = tokenizedExpression
@@ -61,7 +61,7 @@ class Scanner {
     }
 
     double value = evaluateSimpleExpression(simpleExpr);
-    //   System.out.println("val is " + value);
+
     List<ScannedToken> partiallyEvaluatedExpression = [];
     for (int i = 0; i < idx; i++) {
       partiallyEvaluatedExpression.add(tokenizedExpression[i]);
@@ -72,9 +72,6 @@ class Scanner {
       partiallyEvaluatedExpression.add(tokenizedExpression[i]);
     }
 
-    // from idx find first ), extract, evaluate, replace, call recursively
-    //  System.out.println("Expr to eval indexes: " + idx + ", " + matchingRPAR);
-    //print('$partiallyEvaluatedExpression/n');
     return evaluate(partiallyEvaluatedExpression);
   }
 
@@ -99,7 +96,7 @@ class Scanner {
             double.parse(expression[computationIdx - 1].expressionPiece);
         double right =
             double.parse(expression[computationIdx + 1].expressionPiece);
-        //DecimalFormat df = new DecimalFormat(".00");
+
         double ans =
             computationIdx == mulIdx ? left * right : left / right * 1.0;
         for (int i = 0; i < computationIdx - 1; i++) {
@@ -125,7 +122,7 @@ class Scanner {
               double.parse(expression[computationIdx2 - 1].expressionPiece);
           double right =
               double.parse(expression[computationIdx2 + 1].expressionPiece);
-          //DecimalFormat df = new DecimalFormat(".00");
+
           double ans =
               computationIdx2 == addIdx ? left + right : (left - right) * 1.0;
           for (int i = 0; i < computationIdx2 - 1; i++) {
