@@ -1,13 +1,16 @@
-import 'package:dart_math_interpretator/interpretator/scanner.dart';
-import 'package:dart_math_interpretator/interpretator/parser.dart';
-import 'package:dart_math_interpretator/interpretator/scanned_token.dart';
-import 'package:dart_math_interpretator/interpretator/tokens.dart';
+import 'dart:io';
+
+import 'package:dart_math_interpretator/interpreter/scanner.dart';
+import 'package:dart_math_interpretator/interpreter/parser.dart';
+import 'package:dart_math_interpretator/interpreter/scanned_token.dart';
+import 'package:dart_math_interpretator/interpreter/tokens.dart';
+
+import 'package:dart_math_interpretator/interpreter.dart';
 
 void main(List<String> arguments) {
-  Scanner sc = Scanner('-3*10+15/-(3+2)', null);
-  List<ScannedToken> scanExp = sc.scan();
-  Parser parser = Parser(scanExp);
-  List<ScannedToken> parsed = parser.parse();
+  String mathExpression = '-x*y+15/(3+2)';
 
-  print(sc.evaluate(parsed));
+  Map<String, String> variables = {'x': '3', 'y': '10'};
+
+  print(MathInterpreter(mathExpression, variables).solve());
 }

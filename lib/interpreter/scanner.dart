@@ -1,18 +1,32 @@
-import 'package:dart_math_interpretator/interpretator/scanned_token.dart';
+import 'package:dart_math_interpretator/interpreter/scanned_token.dart';
 import 'package:characters/characters.dart';
-import 'package:dart_math_interpretator/interpretator/tokens.dart';
+import 'package:dart_math_interpretator/interpreter/tokens.dart';
 import 'dart:math';
 
 class Scanner {
   final String expression;
-  final Map<String, double>? parameters;
+  final Map<String, String>? parameters;
 
   const Scanner(this.expression, this.parameters);
+
+  String addVariables() {
+    if (parameters == null) return expression;
+    if (parameters!.isEmpty) return expression;
+
+    String newExpression = expression;
+
+    for (var variable in parameters!.keys) {
+      newExpression =
+          newExpression.replaceAll(variable, parameters![variable]!);
+    }
+    return newExpression;
+  }
 
   List<ScannedToken> scan() {
     List<ScannedToken> scannedExpr = [];
     StringBuffer value = StringBuffer();
-    for (String char in expression.characters) {
+    String variableExpression = addVariables();
+    for (String char in variableExpression.characters) {
       Token type = Token.fromString(char);
       if (type != Token.value) {
         if (value.length > 0) {
