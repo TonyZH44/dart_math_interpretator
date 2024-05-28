@@ -30,7 +30,7 @@ class Parser {
         ScannedToken negativevalue = ScannedToken(
             '${(-1 * double.parse(expression[i + 1].expressionPiece))}',
             Token.value);
-        //print("new token at index $i");
+
         indexes.add(i);
         negativevalues.add(negativevalue);
       } else if (prev == Token.lpar &&
@@ -39,7 +39,7 @@ class Parser {
         ScannedToken negativevalue = ScannedToken(
             '${(-1 * double.parse(expression[i + 1].expressionPiece))}',
             Token.value);
-        //print("new token at index $i");
+
         indexes.add(i);
         negativevalues.add(negativevalue);
       }
@@ -58,7 +58,7 @@ class Parser {
       }
       i++;
     }
-    //print(properlyParsedExpression);
+
     return properlyParsedExpression;
   }
 }
